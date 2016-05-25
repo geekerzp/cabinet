@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  username: geekerzp
+  password:
+  host: localhost
+
+development:
+  <<: *default
+  database: cabinet_development
+
+test:
+  <<: *default
+  database: cabinet_test
+
+production:
+  <<: *default
+  database: cabinet_production

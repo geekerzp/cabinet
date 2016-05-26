@@ -1,9 +1,10 @@
 class PapersController < ApplicationController
   before_action :set_paper, only: [:show, :update, :destroy]
+  before_action :set_paper_file, only: [:index]
 
   # GET /papers
   def index
-    @papers = Paper.all
+    @papers = @paper_file.papers
 
     render json: @papers
   end
@@ -43,6 +44,10 @@ class PapersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_paper
     @paper = Paper.find(params[:id])
+  end
+
+  def set_paper_file
+    @paper_file = PaperFile.find(params[:paper_file_id])
   end
 
   # Only allow a trusted parameter "white list" through.

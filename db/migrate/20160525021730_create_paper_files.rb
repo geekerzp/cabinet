@@ -4,6 +4,7 @@ class CreatePaperFiles < ActiveRecord::Migration[5.0]
       t.string :data
       t.string :filename
       t.string :filetype
+      t.string :from_who
 
       t.timestamps
     end

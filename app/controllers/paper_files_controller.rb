@@ -1,6 +1,7 @@
 class PaperFilesController < ApplicationController
   before_action :set_paper_file, only: [:show, :update, :destroy]
   before_action :set_paper, only: [:index]
+  before_action :set_papers, only: [:create, :update]
 
   # GET /paper_files
   def index
@@ -16,7 +17,13 @@ class PaperFilesController < ApplicationController
 
   # POST /paper_files
   def create
-    @paper_file = PaperFile.new(paper_file_params)
+    @paper_file = PaperFile.new(
+      data: params[:data],
+      filename: params[:data].try(:original_filename),
+      from_who: params[:from_who]
+    )
+
+    @paper_file.papers << @papers
 
     if @paper_file.save
       render json: @paper_file, status: :created, location: @paper_file
@@ -27,7 +34,7 @@ class PaperFilesController < ApplicationController
 
   # PATCH/PUT /paper_files/1
   def update
-    if @paper_file.update(paper_file_params)
+    if @paper_file.update(papers: @papers)
       render json: @paper_file
     else
       render json: @paper_file.errors, status: :unprocessable_entity
@@ -45,12 +52,17 @@ class PaperFilesController < ApplicationController
     @paper = Paper.find(params[:paper_id])
   end
 
+  def set_papers
+    paper_ids = params[:paper_ids]
+    @papers = paper_ids.to_a.reject(&:blank?).map { |id| Paper.find id }
+  end
+
   def set_paper_file
-    @paper_file = Paper_File.find(params[:id])
+    @paper_file = PaperFile.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def paper_file_params
-    params.require(:paper_file).permit(:body)
+    params.permit(:data, :filename, :from_who, :paper_ids)
   end
 end

@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160525024534) do
     t.string   "data"
     t.string   "filename"
     t.string   "filetype"
+    t.string   "from_who"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

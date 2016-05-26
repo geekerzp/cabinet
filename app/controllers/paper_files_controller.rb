@@ -1,9 +1,10 @@
 class PaperFilesController < ApplicationController
   before_action :set_paper_file, only: [:show, :update, :destroy]
+  before_action :set_paper, only: [:index]
 
   # GET /paper_files
   def index
-    @paper_files = PaperFile.all
+    @paper_files = @paper.paper_files
 
     render json: @paper_files
   end
@@ -40,7 +41,10 @@ class PaperFilesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def set_paper
+    @paper = Paper.find(params[:paper_id])
+  end
+
   def set_paper_file
     @paper_file = Paper_File.find(params[:id])
   end

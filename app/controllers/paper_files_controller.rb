@@ -1,21 +1,18 @@
 class PaperFilesController < ApplicationController
-  before_action :set_paper_file, only: [:show, :update, :destroy]
+  before_action :set_paper_file, only: [:show, :update, :destroy, :download]
   before_action :set_paper, only: [:index]
   before_action :set_papers, only: [:create, :update]
 
-  # GET /paper_files
   def index
     @paper_files = @paper.paper_files
 
     render json: @paper_files
   end
 
-  # GET /paper_files/1
   def show
     render json: @paper_file
   end
 
-  # POST /paper_files
   def create
     @paper_file = PaperFile.new(
       data: params[:data],
@@ -32,7 +29,6 @@ class PaperFilesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /paper_files/1
   def update
     if @paper_file.update(papers: @papers)
       render json: @paper_file
@@ -41,9 +37,12 @@ class PaperFilesController < ApplicationController
     end
   end
 
-  # DELETE /paper_files/1
   def destroy
-    @paper_file.destroy
+    @paper_file.destroy!
+  end
+
+  def download
+    send_file @paper_file.data.path, filename: @paper_file.filename
   end
 
   private
@@ -61,7 +60,6 @@ class PaperFilesController < ApplicationController
     @paper_file = PaperFile.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
   def paper_file_params
     params.permit(:data, :filename, :from_who, :paper_ids)
   end

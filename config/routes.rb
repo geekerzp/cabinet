@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   end
   resources :paper_files do
     resources :papers
+    member do
+      get :download
+    end
   end
 end

@@ -1,6 +1,7 @@
 .bundle
 log
 tmp
+public/uploads
 
 # Ignore Byebug command history file.
 .byebug_history

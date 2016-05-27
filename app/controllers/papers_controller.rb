@@ -37,11 +37,11 @@ class PapersController < ApplicationController
   private
 
   def set_paper
-    @paper = Paper.find(params[:id])
+    @paper = Paper.find_by(uuid: params[:id])
   end
 
   def set_paper_file
-    @paper_file = PaperFile.find(params[:paper_file_id])
+    @paper_file = PaperFile.find_by(uuid: params[:paper_file_id])
   end
 
   def paper_params

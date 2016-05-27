@@ -1,3 +1,3 @@
 class PaperSerializer < ActiveModel::Serializer
-  attributes :id, :body
+  attributes :id, :uuid, :body
 end

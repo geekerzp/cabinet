@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20160525024534) do
   enable_extension "plpgsql"
 
   create_table "paper_files", force: :cascade do |t|
+    t.string   "uuid"
     t.string   "data"
     t.string   "filename"
     t.string   "filetype"
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 20160525024534) do
 
   create_table "papers", force: :cascade do |t|
     t.string   "body"
+    t.string   "uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

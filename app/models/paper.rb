@@ -9,6 +9,8 @@
 #
 
 class Paper < ApplicationRecord
+  include UUID
+
   has_many :paper_files, through: :paper_relations, dependent: :destroy
   has_many :paper_relations
 

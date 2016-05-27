@@ -48,16 +48,16 @@ class PaperFilesController < ApplicationController
   private
 
   def set_paper
-    @paper = Paper.find(params[:paper_id])
+    @paper = Paper.find_by(uuid: params[:paper_id])
   end
 
   def set_papers
     paper_ids = params[:paper_ids]
-    @papers = paper_ids.to_a.reject(&:blank?).map { |id| Paper.find id }
+    @papers = paper_ids.to_a.reject(&:blank?).map { |id| Paper.find_by(uuid: id) }
   end
 
   def set_paper_file
-    @paper_file = PaperFile.find(params[:id])
+    @paper_file = PaperFile.find_by(uuid: params[:id])
   end
 
   def paper_file_params
